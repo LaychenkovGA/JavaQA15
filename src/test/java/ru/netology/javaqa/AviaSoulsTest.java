@@ -81,9 +81,16 @@ public class AviaSoulsTest {
     }
 
     @Test
-    public void shouldLookForAOne_WayTicket() {
-        Ticket[] expected = {ticket_3};
-        Ticket[] actual = AviaSouls.search("Москва", "Нижневартовск");
+    public void shouldLookForOneTicket() {
+        Ticket[] expected = {ticket_2};
+        Ticket[] actual = AviaSouls.search("Самара", "Сургут");
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldLookForNoTicket() {
+        Ticket[] expected = {};
+        Ticket[] actual = AviaSouls.search("Самара", "Санкт-Петербург");
         Assertions.assertArrayEquals(expected, actual);
     }
 
@@ -91,6 +98,20 @@ public class AviaSoulsTest {
     public void shouldBeSearchedAndSortedInAscendingOrder() {
         Ticket[] expected = {ticket_4, ticket_5, ticket_6};
         Ticket[] actual = AviaSouls.searchAndSortBy("Санкт-Петербург", "Самара", ticketComparator);
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSearchAndSortOneTicketInAscendingOrder() {
+        Ticket[] expected = {ticket_2};
+        Ticket[] actual = AviaSouls.searchAndSortBy("Самара", "Сургут", ticketComparator);
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSearchAndSortNoTicketInAscendingOrder() {
+        Ticket[] expected = {};
+        Ticket[] actual = AviaSouls.searchAndSortBy("Самара", "Ханты-Мансийск", ticketComparator);
         Assertions.assertArrayEquals(expected, actual);
     }
 }
